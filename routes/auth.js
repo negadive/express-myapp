@@ -1,5 +1,6 @@
 const { body } = require('express-validator')
 var authController = require("../controllers/auth.js")
+const { throw_if_error_basic } = require('../middlewares/validator')
 
 var express = require("express")
 var router = express.Router()
@@ -9,6 +10,7 @@ router.post(
     "/login",
     body("username").notEmpty(),
     body("password").notEmpty(),
+    throw_if_error_basic,
     authController.login
 )
 
