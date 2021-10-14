@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { param, body } = require('express-validator')
 let router = require('express').Router()
 const userController = require('../controllers/users')
 const { throw_if_error_basic } = require('../middlewares/validator')
@@ -18,6 +18,13 @@ router.get(
     "",
     basicAuth,
     userController.fetchAll
+)
+
+router.get(
+    "/:username",
+    param("username").notEmpty(),
+    basicAuth,
+    userController.getOne
 )
 
 module.exports = router
