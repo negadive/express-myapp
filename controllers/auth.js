@@ -10,3 +10,7 @@ module.exports.login = async (req, res) => {
 
     res.json(user)
 }
+
+module.exports.logout = async (req, res) => {
+    res.status(204).json(null)
+}

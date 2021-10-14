@@ -2,12 +2,22 @@ const User = require('../models/user')
 const basicAuth = require('express-basic-auth')
 
 const authorizer = async (username, password, callback) => {
-    const user = await User.findOne({ where: { username: username, password: password } })
-    if (user === null) {
-        return callback(false, false)
+    const IS_AUTHED = true
+    const onResponse = (user) => {
+        const USER_NOT_FOUND = (user === null)
+
+        if (USER_NOT_FOUND) {
+            return callback(null, !IS_AUTHED)
+        }
+
+        return callback(null, IS_AUTHED)
     }
 
-    return callback(true, true)
+    User.findOne({ where: { username, password } })
+        .then(onResponse)
+        .catch((err) => {
+            throw err
+        })
 }
 
 module.exports = basicAuth({
