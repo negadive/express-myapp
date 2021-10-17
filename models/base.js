@@ -1,6 +1,3 @@
-import dotenv from 'dotenv'
-dotenv.config({ debug: process.env.DEBUG })
-
 import Sequelize from "sequelize";
 
 const {
@@ -22,7 +19,6 @@ export const sequelize = new Sequelize(
     {
         host,
         dialect,
-        operatorsAliases: false,
         pool: {
             max: parseInt(pool_max),
             min: parseInt(pool_min),

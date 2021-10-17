@@ -3,6 +3,8 @@
 /**
  * Module dependencies.
  */
+import 'dotenv/config'
+
 import { createServer } from 'http';
 import app from '../app.js';
 import _debug from 'debug'

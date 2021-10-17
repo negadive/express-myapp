@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www.js",
-    "debug": "node ./bin/www.js"
+    "start": "node -r dotenv/config ./bin/www.js",
+    "debug": "node -r dotenv/config ./bin/www.js"
   },
   "type": "module",
   "dependencies": {
