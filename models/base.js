@@ -1,20 +1,33 @@
-const dbConfig = require("../db/config")
+import dotenv from 'dotenv'
+dotenv.config({ debug: process.env.DEBUG })
 
-const Sequelize = require("sequelize");
+import Sequelize from "sequelize";
 
-module.exports.sequelize = new Sequelize(
-    dbConfig.DB,
-    dbConfig.USER,
-    dbConfig.PASSWORD,
+const {
+    DB_HOST: host,
+    DB_USER: user,
+    DB_PASSWORD: password,
+    DB_DB: db,
+    DB_DIALECT: dialect,
+    DB_POOL_MAX: pool_max,
+    DB_POOL_MIN: pool_min,
+    DB_POOL_ACQUIRE: pool_acq,
+    DB_POOL_IDLE: pool_idle,
+} = process.env
+
+export const sequelize = new Sequelize(
+    db,
+    user,
+    password,
     {
-        host: dbConfig.HOST,
-        dialect: dbConfig.dialect,
+        host,
+        dialect,
         operatorsAliases: false,
         pool: {
-            max: dbConfig.pool.max,
-            min: dbConfig.pool.min,
-            acquire: dbConfig.pool.acquire,
-            idle: dbConfig.pool.idle
+            max: parseInt(pool_max),
+            min: parseInt(pool_min),
+            acquire: parseInt(pool_acq),
+            idle: parseInt(pool_idle)
         }
     }
 );

@@ -1,5 +1,6 @@
-const { Model, DataTypes } = require('sequelize')
-const { sequelize } = require('./base')
+import sequelize_pkg from 'sequelize'
+import { sequelize } from './base.js'
+const { DataTypes, Model } = sequelize_pkg
 
 class User extends Model { }
 User.init(
@@ -31,4 +32,4 @@ User.init(
 
 User.sync({ alter: true })
 
-module.exports = User
+export default User

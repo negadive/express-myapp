@@ -1,7 +1,7 @@
-const User = require('../models/user')
-const { UniqueConstraintError } = require('sequelize/lib/errors')
+import { UniqueConstraintError } from 'sequelize/lib/errors/index.js'
+import User from '../models/user.js'
 
-module.exports.register = async (req, res) => {
+export async function register(req, res) {
     const data = { username, password, name, nip } = req.body
 
     try {
@@ -18,7 +18,7 @@ module.exports.register = async (req, res) => {
     }
 }
 
-module.exports.fetchAll = async (req, res) => {
+export async function fetchAll(req, res) {
     const { limit, offset } = req.query
 
     var { rows: data, total } = await User.findAndCountAll({ limit, offset })
@@ -26,7 +26,7 @@ module.exports.fetchAll = async (req, res) => {
     res.json({ total, data })
 }
 
-module.exports.getOne = async (req, res) => {
+export async function getOne(req, res) {
     const { username } = req.params
 
     const user = await User.findOne({ where: { username } })

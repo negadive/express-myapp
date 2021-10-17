@@ -1,8 +1,9 @@
-const { param, body } = require('express-validator')
-let router = require('express').Router()
-const userController = require('../controllers/users')
-const { throw_if_error_basic } = require('../middlewares/validator')
-const basicAuth = require('../middlewares/basic_auth')
+import { Router } from 'express'
+import { body, param } from 'express-validator'
+import { fetchAll, getOne, register } from '../controllers/users.js'
+import { throw_if_error_basic } from '../middlewares/validator.js'
+
+let router = Router()
 
 router.post(
     "/register",
@@ -11,20 +12,18 @@ router.post(
     body("name").notEmpty(),
     body("nip").notEmpty(),
     throw_if_error_basic,
-    userController.register
+    register
 )
 
 router.get(
     "",
-    basicAuth,
-    userController.fetchAll
+    fetchAll
 )
 
 router.get(
     "/:username",
     param("username").notEmpty(),
-    basicAuth,
-    userController.getOne
+    getOne
 )
 
-module.exports = router
+export default router

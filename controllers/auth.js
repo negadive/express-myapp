@@ -1,6 +1,6 @@
-const User = require('../models/user')
+import User from '../models/user.js'
 
-module.exports.login = async (req, res) => {
+export async function login(req, res) {
     const { username, password } = req.body
 
     const user = await User.findOne({ where: { username: username, password: password } })
@@ -11,6 +11,6 @@ module.exports.login = async (req, res) => {
     res.json(user)
 }
 
-module.exports.logout = async (req, res) => {
+export async function logout(req, res) {
     res.status(204).json(null)
 }

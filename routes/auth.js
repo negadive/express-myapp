@@ -1,23 +1,21 @@
-const { body } = require('express-validator')
-var authController = require("../controllers/auth.js")
-const { throw_if_error_basic } = require('../middlewares/validator')
+import { Router } from "express"
+import { body } from 'express-validator'
+import { login, logout } from "../controllers/auth.js"
+import { throw_if_error_basic } from '../middlewares/validator.js'
 
-var express = require("express")
-var router = express.Router()
-const basicAuth = require('../middlewares/basic_auth')
+var router = Router()
 
 router.post(
     "/login",
     body("username").notEmpty(),
     body("password").notEmpty(),
     throw_if_error_basic,
-    authController.login
+    login
 )
 
 router.post(
     "/logout",
-    basicAuth,
-    authController.logout
+    logout
 )
 
-module.exports = router
+export default router
