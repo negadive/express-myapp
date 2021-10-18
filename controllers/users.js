@@ -21,7 +21,8 @@ export async function register(req, res) {
 export async function fetchAll(req, res) {
     const { limit, offset } = req.query
 
-    var { rows: data, total } = await User.findAndCountAll({ limit, offset })
+    const total = await User.count()
+    var data = await User.findAll({ limit, offset })
 
     res.json({ total, data })
 }
