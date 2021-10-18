@@ -1,20 +1,15 @@
-import { UniqueConstraintError } from 'sequelize/lib/errors/index.js'
 import User from '../models/user.js'
 
-export async function register(req, res) {
-    const data = { username, password, name, nip } = req.body
+export async function register(req, res, next) {
+    const { username, password, name, nip } = req.body
 
     try {
-        const user = await User.create(data)
+        const user = await User.create({ username, password, name, nip })
 
         res.status(201).json(user)
     }
     catch (err) {
-        if (err instanceof UniqueConstraintError) {
-            res.status(400).json({ errors: "User not unique" })
-        }
-
-        throw err
+        next(err)
     }
 }
 
