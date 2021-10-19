@@ -17,6 +17,10 @@ User.init(
         name: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        walletPoint: {
+            type: DataTypes.DECIMAL,
+            defaultValue: 0
         }
     },
     {

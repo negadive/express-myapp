@@ -8,8 +8,9 @@ import { sequelize_err_handler } from './middlewares/error_handler.js';
 import authRouter from './routes/auth.js';
 // import indexRouter from './routes/index.js';
 import inventoryRouter from './routes/inventory.js';
+import sellOrderRouter from './routes/sellOrder.js';
 import userRouter from './routes/users.js';
-import sellOrderRouter from './routes/sellOrder.js'
+import walletPointTransRouter from './routes/walletPointTrans.js';
 
 
 var app = express();
@@ -25,6 +26,7 @@ app.use('/', authRouter);
 userRouter.use('/:username/inventory', inventoryRouter);
 app.use('/users', userRouter);
 app.use('/sellOrders', sellOrderRouter);
+app.use('/walletPointTrans', walletPointTransRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
